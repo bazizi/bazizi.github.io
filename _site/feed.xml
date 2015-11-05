@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Behnam Azizi&#39;s Codeblog</title>
+    <description>A place for coders, hackers and script kiddies!
+</description>
+    <link>http://cgi.sfu.ca/~bazizi/</link>
+    <atom:link href="http://cgi.sfu.ca/~bazizi/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 04 Nov 2015 21:13:30 -0800</pubDate>
+    <lastBuildDate>Wed, 04 Nov 2015 21:13:30 -0800</lastBuildDate>
+    <generator>Jekyll v3.0.0</generator>
+    
+      <item>
+        <title>My very first post</title>
+        <description>&lt;p&gt;This is my very first post. In here I will be blogging about my interesting technical experiences.
+Here are some topics I will be blogging about:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;New programming languages and technologies&lt;/li&gt;
+  &lt;li&gt;Interesting programming puzzles and their solutions&lt;/li&gt;
+  &lt;li&gt;Scripts that make daily tasks easy&lt;/li&gt;
+  &lt;li&gt;Good software development practices&lt;/li&gt;
+  &lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 04 Nov 2015 00:00:00 -0800</pubDate>
+        <link>http://cgi.sfu.ca/~bazizi/jekyll/update/2015/11/04/my-very-first-post.html</link>
+        <guid isPermaLink="true">http://cgi.sfu.ca/~bazizi/jekyll/update/2015/11/04/my-very-first-post.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+  </channel>
+</rss>
