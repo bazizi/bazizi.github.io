@@ -6,45 +6,9 @@
 </description>
     <link>http://bazizi.github.io/</link>
     <atom:link href="http://bazizi.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 05 Nov 2015 21:04:29 -0800</pubDate>
-    <lastBuildDate>Thu, 05 Nov 2015 21:04:29 -0800</lastBuildDate>
+    <pubDate>Thu, 05 Nov 2015 21:17:41 -0800</pubDate>
+    <lastBuildDate>Thu, 05 Nov 2015 21:17:41 -0800</lastBuildDate>
     <generator>Jekyll v3.0.0</generator>
-    
-      <item>
-        <title>test</title>
-        <description>&lt;p&gt;Hi there&lt;/p&gt;
-</description>
-        <pubDate>Thu, 05 Nov 2015 00:00:00 -0800</pubDate>
-        <link>http://bazizi.github.io/programming_puzzles/jekyll/update/2015/11/05/test.html</link>
-        <guid isPermaLink="true">http://bazizi.github.io/programming_puzzles/jekyll/update/2015/11/05/test.html</guid>
-        
-        
-        <category>programming_puzzles</category>
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
-        
-      </item>
-    
-      <item>
-        <title>test</title>
-        <description>&lt;p&gt;Hi there&lt;/p&gt;
-</description>
-        <pubDate>Thu, 05 Nov 2015 00:00:00 -0800</pubDate>
-        <link>http://bazizi.github.io/posts/programming_puzzles/jekyll/update/2015/11/05/test.html</link>
-        <guid isPermaLink="true">http://bazizi.github.io/posts/programming_puzzles/jekyll/update/2015/11/05/test.html</guid>
-        
-        
-        <category>posts</category>
-        
-        <category>programming_puzzles</category>
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
-        
-      </item>
     
       <item>
         <title>Run C++ like a scripting language/Create your own bash command</title>
