@@ -6,8 +6,8 @@
 </description>
     <link>http://bazizi.github.io/</link>
     <atom:link href="http://bazizi.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 05 Nov 2015 21:17:41 -0800</pubDate>
-    <lastBuildDate>Thu, 05 Nov 2015 21:17:41 -0800</lastBuildDate>
+    <pubDate>Fri, 06 Nov 2015 18:54:27 -0800</pubDate>
+    <lastBuildDate>Fri, 06 Nov 2015 18:54:27 -0800</lastBuildDate>
     <generator>Jekyll v3.0.0</generator>
     
       <item>
@@ -46,11 +46,9 @@ language (e.g., Python, Ruby etc.) by just doing:&lt;/li&gt;
 &lt;p&gt;&lt;code&gt;cpp &amp;lt;script name&amp;gt;&lt;/code&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 05 Nov 2015 00:00:00 -0800</pubDate>
-        <link>http://bazizi.github.io/posts/2015/11/05/run-c-like-a-scripting-language.html</link>
-        <guid isPermaLink="true">http://bazizi.github.io/posts/2015/11/05/run-c-like-a-scripting-language.html</guid>
+        <link>http://bazizi.github.io/2015/11/05/run-c-like-a-scripting-language.html</link>
+        <guid isPermaLink="true">http://bazizi.github.io/2015/11/05/run-c-like-a-scripting-language.html</guid>
         
-        
-        <category>posts</category>
         
       </item>
     
@@ -68,11 +66,9 @@ Here are some topics I will be blogging about:&lt;/p&gt;
 &lt;/ul&gt;
 </description>
         <pubDate>Wed, 04 Nov 2015 00:00:00 -0800</pubDate>
-        <link>http://bazizi.github.io/posts/jekyll/update/2015/11/04/my-very-first-post.html</link>
-        <guid isPermaLink="true">http://bazizi.github.io/posts/jekyll/update/2015/11/04/my-very-first-post.html</guid>
+        <link>http://bazizi.github.io/jekyll/update/2015/11/04/my-very-first-post.html</link>
+        <guid isPermaLink="true">http://bazizi.github.io/jekyll/update/2015/11/04/my-very-first-post.html</guid>
         
-        
-        <category>posts</category>
         
         <category>jekyll</category>
         
