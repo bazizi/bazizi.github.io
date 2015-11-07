@@ -6,8 +6,8 @@
 </description>
     <link>http://bazizi.github.io/</link>
     <atom:link href="http://bazizi.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 06 Nov 2015 20:07:36 -0800</pubDate>
-    <lastBuildDate>Fri, 06 Nov 2015 20:07:36 -0800</lastBuildDate>
+    <pubDate>Sat, 07 Nov 2015 11:16:17 -0800</pubDate>
+    <lastBuildDate>Sat, 07 Nov 2015 11:16:17 -0800</lastBuildDate>
     <generator>Jekyll v3.0.0</generator>
     
       <item>
@@ -133,8 +133,9 @@ be unrelated to this particular blog post):&lt;/li&gt;
       <item>
         <title>Run C++ like a scripting language/Create your own bash command</title>
         <description>&lt;p&gt;Here I am going to explain how to run C++ like any other scripting language.&lt;br /&gt;
-In addition, I am going to explain how to define your own bash command.
-&lt;strong&gt;Note:&lt;/strong&gt; This tutorial assumes you have &lt;code&gt;g++&lt;/code&gt; installed. If not, run the following:
+In addition, I am going to explain how to define your own bash command.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; This tutorial assumes you have &lt;code&gt;g++&lt;/code&gt; installed. If not, run the following:
 &lt;code&gt;sudo apt-get install g++&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Goal:&lt;/strong&gt; When I run &lt;code&gt;cpp abc.cpp&lt;/code&gt;, I want the shell to compile and execute

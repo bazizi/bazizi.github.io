@@ -6,6 +6,7 @@ date:   2015-11-05
 
 Here I am going to explain how to run C++ like any other scripting language.  
 In addition, I am going to explain how to define your own bash command.
+
 **Note:** This tutorial assumes you have `g++` installed. If not, run the following:
 `sudo apt-get install g++`
 
