@@ -6,9 +6,129 @@
 </description>
     <link>http://bazizi.github.io/</link>
     <atom:link href="http://bazizi.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 06 Nov 2015 18:54:27 -0800</pubDate>
-    <lastBuildDate>Fri, 06 Nov 2015 18:54:27 -0800</lastBuildDate>
+    <pubDate>Fri, 06 Nov 2015 20:07:36 -0800</pubDate>
+    <lastBuildDate>Fri, 06 Nov 2015 20:07:36 -0800</lastBuildDate>
     <generator>Jekyll v3.0.0</generator>
+    
+      <item>
+        <title>Linux: Mounting Windows drives on startup</title>
+        <description>&lt;p&gt;In this post I am going to explain how to mount Windows drives on start up.
+In this example, my Windows machine has drives &lt;code&gt;C&lt;/code&gt;, &lt;code&gt;D&lt;/code&gt; and &lt;code&gt;E&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;preparing-the-mount-points&quot;&gt;1. Preparing the mount points&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;The first step is to create some mount points to mount the Windows drives&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;behnam@behnam-Aspire-5733 ~ &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /media
+behnam@behnam-Aspire-5733 ~ &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo mkdir C D E tmp&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We will use the &lt;code&gt;tmp/&lt;/code&gt; directory in the above to test the partitions and
+find out which partition corresponds to which Windows drive (i.e., &lt;code&gt;C&lt;/code&gt;, &lt;code&gt;D&lt;/code&gt; or &lt;code&gt;E&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;finding-the-mount-points&quot;&gt;2. Finding the mount points&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;The next step is to find out which partitions should be mounted&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;behnam@behnam-Aspire-5733 ~ &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo fdisk -l
+
+Disk /dev/sda: 500.1 GB, 500107862016 bytes
+255 heads, 63 sectors/track, 60801 cylinders, total 976773168 sectors
+Units &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; sectors of 1 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; 512 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 512 bytes
+Sector size &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;logical/physical&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 512 bytes / 4096 bytes
+I/O size &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;minimum/optimal&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: 4096 bytes / 4096 bytes
+Disk identifier: 0x17d6956b
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1            2048    33556479    16777216   27  Hidden NTFS WinRE
+/dev/sda2   &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;    33556480    33761279      102400    7  HPFS/NTFS/exFAT
+/dev/sda3        33761280   351658699   158948710    7  HPFS/NTFS/exFAT
+/dev/sda4       351660030   976769023   312554497    f  W95 Ext&lt;span class=&quot;se&quot;&gt;\&#39;&lt;/span&gt;d &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;LBA&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+Partition 4 does not start on physical sector boundary.
+/dev/sda5       547524608   771766271   112120832    7  HPFS/NTFS/exFAT
+/dev/sda6       771768320   976769023   102500352    7  HPFS/NTFS/exFAT
+/dev/sda7       351660032   539811839    94075904   83  Linux
+/dev/sda8       539813888   547510271     3848192   82  Linux swap / Solaris
+
+Partition table entries are not &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;disk order&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The next step is to test each of the NTFS drives to find out which one of the
+partitions are either of &lt;code&gt;C&lt;/code&gt;, &lt;code&gt;D&lt;/code&gt; or &lt;code&gt;E&lt;/code&gt; drive. In the following example,
+I tested &lt;code&gt;/dev/sda3&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;behnam@behnam-Aspire-5733 ~ &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo mount /dev/sda3 /media/tmp
+behnam@behnam-Aspire-5733 ~ &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /media/tmp
+behnam@behnam-Aspire-5733 ~ &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Now based on the contents of the directory you should be able to find out
+which drive (&lt;code&gt;C&lt;/code&gt;, &lt;code&gt;D&lt;/code&gt; or &lt;code&gt;E&lt;/code&gt;) the above partition corresponds to. In my case
+it was &lt;code&gt;C&lt;/code&gt; drive (All the following instruction are only for this partition).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;modiying-fstab&quot;&gt;3. Modiying “fstab”&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Assuming that you want to mount the &lt;code&gt;C&lt;/code&gt; drive (That we just found to be
+&lt;code&gt;/dev/sda3&lt;/code&gt;), edit &lt;code&gt;/etc/fstab&lt;/code&gt; and the following entry at the end of the
+file:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;/dev/sda3     /media/C           ntfs-3g    rw              0       0&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;You need to repeat the above step for all other windows partitions that you
+have.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;testing&quot;&gt;4. Testing&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;To test you &lt;code&gt;/etc/fstab&lt;/code&gt; file, you need to run the following command:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;behnam@behnam-Aspire-5733 ~ &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo mount -a&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Look for any errors (If applicable) to be able to fix your &lt;code&gt;fstab&lt;/code&gt; file if
+required&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;an-example&quot;&gt;5. An example&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Finally, here is how my &lt;code&gt;/etc/fstab&lt;/code&gt; looks like (Some of the lines may
+be unrelated to this particular blog post):&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# /etc/fstab: static file system information.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Use &#39;blkid&#39; to print the universally unique identifier for a&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# device; this may be used with UUID= as a more robust way to name devices&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# that works even if disks are added and removed. See fstab(5).&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# &amp;lt;file system&amp;gt; &amp;lt;mount point&amp;gt;   &amp;lt;type&amp;gt;  &amp;lt;options&amp;gt;       &amp;lt;dump&amp;gt;  &amp;lt;pass&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# / was on /dev/sda7 during installation&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;UUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;dd3fcb27-0764-44bc-8a76-0b2cbf8d4978 /               ext4    &lt;span class=&quot;nv&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;remount-ro 0       1
+&lt;span class=&quot;c&quot;&gt;# swap was on /dev/sda8 during installation&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;UUID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;7370b7ec-2a04-4dac-97e0-f68e983f9ed5 none            swap    sw              0       0
+/dev/sda3     /media/C           ntfs-3g    rw              0       0
+/dev/sda5     /media/E          ntfs-3g    rw               0       0
+/dev/sda6     /media/D          ntfs-3g    rw               0       0&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+</description>
+        <pubDate>Fri, 06 Nov 2015 00:00:00 -0800</pubDate>
+        <link>http://bazizi.github.io/jekyll/update/2015/11/06/linux-mounting-windows-drives-on-startup.html</link>
+        <guid isPermaLink="true">http://bazizi.github.io/jekyll/update/2015/11/06/linux-mounting-windows-drives-on-startup.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
     
       <item>
         <title>Run C++ like a scripting language/Create your own bash command</title>
