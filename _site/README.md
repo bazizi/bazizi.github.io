@@ -1,2 +1,3 @@
-# Programming Challenges
-* This repository contains sample programming challenges and their solutions
+# Behnam Azizi's Codeblog
+- To view my blog please visit
+[Behnam Azizi's Codeblog](http://bazizi.github.io/)

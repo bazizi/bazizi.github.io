@@ -6,9 +6,72 @@
 </description>
     <link>http://bazizi.github.io/</link>
     <atom:link href="http://bazizi.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 07 Nov 2015 11:16:17 -0800</pubDate>
-    <lastBuildDate>Sat, 07 Nov 2015 11:16:17 -0800</lastBuildDate>
+    <pubDate>Sat, 14 Nov 2015 10:45:51 -0800</pubDate>
+    <lastBuildDate>Sat, 14 Nov 2015 10:45:51 -0800</lastBuildDate>
     <generator>Jekyll v3.0.0</generator>
+    
+      <item>
+        <title>Create your own Agar.io game server</title>
+        <description>&lt;p&gt;In this post I am going to explain how to create your own game Agar.io server
+and play with friends. We will use an open-source implementation of Agar.io
+named Ogar. The following instruction are done in Ubuntu (or any other similar
+    distribution). In order to play with friends, you need to be under the
+    same network (Unless you want to use a VPN server as a relay point).&lt;/p&gt;
+
+&lt;h2 id=&quot;requirements&quot;&gt;Requirements:&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Windows/Linux/Mac (The following instructions will be for Linux only)&lt;/li&gt;
+  &lt;li&gt;nodeJS&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;git CLI (If you’re a Windows user, you can download git CLI from
+&lt;a href=&quot;https://git-scm.com/downloads&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Download the source code&lt;/strong&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    git clone git://github.com/OgarProject/Ogar.git&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Install WebSocket module in nodeJS&lt;/strong&gt;:
+Agar.io makes heavy use of WebSockets. To install the module run the following
+command (without changing your current directory):&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    npm install ws&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Startup your Agar.io server:&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    npm install ws&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Finally, you (and your friends) can navigate to &lt;a href=&quot;http://127.0.0.1:443&quot;&gt;http://127.0.0.1:443&lt;/a&gt;
+to play the game&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;configuring-your-server&quot;&gt;Configuring your server:&lt;/h2&gt;
+&lt;p&gt;To configure the game server, you can modify the file &lt;code&gt;src/gameserver.ini&lt;/code&gt;.
+Some of the game variables you can change:
+- Size of food
+- Initial size of cells
+- Maximum size of cells
+- Split size&lt;/p&gt;
+
+&lt;p&gt;Additionally, you can run commands that change game variables in real-time.
+For a list of commands please refer to &lt;a href=&quot;https://github.com/OgarProject/Ogar/tree/master/src&quot;&gt;Ogar Project on Github&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 14 Nov 2015 00:00:00 -0800</pubDate>
+        <link>http://bazizi.github.io/jekyll/update/2015/11/14/create-your-own-agar-io-game-server.html</link>
+        <guid isPermaLink="true">http://bazizi.github.io/jekyll/update/2015/11/14/create-your-own-agar-io-game-server.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
     
       <item>
         <title>Linux: Mounting Windows drives on startup</title>
@@ -28,7 +91,7 @@ behnam@behnam-Aspire-5733 ~ &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo
 find out which partition corresponds to which Windows drive (i.e., &lt;code&gt;C&lt;/code&gt;, &lt;code&gt;D&lt;/code&gt; or &lt;code&gt;E&lt;/code&gt;)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;finding-the-mount-points&quot;&gt;2. Finding the mount points&lt;/h2&gt;
+&lt;h2 id=&quot;finding-the-mount-partitions&quot;&gt;2. Finding the mount partitions&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;The next step is to find out which partitions should be mounted&lt;/li&gt;
 &lt;/ul&gt;
@@ -74,7 +137,7 @@ it was &lt;code&gt;C&lt;/code&gt; drive (All the following instruction are only 
 &lt;h2 id=&quot;modiying-fstab&quot;&gt;3. Modiying “fstab”&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;Assuming that you want to mount the &lt;code&gt;C&lt;/code&gt; drive (That we just found to be
-&lt;code&gt;/dev/sda3&lt;/code&gt;), edit &lt;code&gt;/etc/fstab&lt;/code&gt; and the following entry at the end of the
+&lt;code&gt;/dev/sda3&lt;/code&gt;), edit &lt;code&gt;/etc/fstab&lt;/code&gt; and add the following entry at the end of the
 file:&lt;/li&gt;
 &lt;/ul&gt;
 

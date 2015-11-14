@@ -17,7 +17,7 @@ behnam@behnam-Aspire-5733 ~ $ sudo mkdir C D E tmp
 - We will use the `tmp/` directory in the above to test the partitions and
 find out which partition corresponds to which Windows drive (i.e., `C`, `D` or `E`)
 
-## 2. Finding the mount points
+## 2. Finding the mount partitions
 - The next step is to find out which partitions should be mounted
 {% highlight bash  %}
 behnam@behnam-Aspire-5733 ~ $ sudo fdisk -l
@@ -58,7 +58,7 @@ it was `C` drive (All the following instruction are only for this partition).
 
 ## 3. Modiying "fstab"
 - Assuming that you want to mount the `C` drive (That we just found to be
-  `/dev/sda3`), edit `/etc/fstab` and the following entry at the end of the
+  `/dev/sda3`), edit `/etc/fstab` and add the following entry at the end of the
   file:
 {% highlight bash  %}
 /dev/sda3     /media/C           ntfs-3g    rw              0       0

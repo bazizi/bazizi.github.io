@@ -14,6 +14,6 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://bazizi.github.io" # the base hostname & protocol for your site
 #twitter_username: jekyllrb
 github_username:  bazizi
-paginate: 10
+# paginate: 10
 # Build settings
 markdown: kramdown
