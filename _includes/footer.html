@@ -2,14 +2,18 @@
 
   <div class="wrapper">
 
-    <h2 class="footer-heading">{{ site.title }}</h2>
+    <!-- <h2 class="footer-heading">{{ site.title }}</h2> -->
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
+        <img width=50 height=50 src="{{ site.avatar }}" align="left" style="padding-right: 10px">
         <ul class="contact-list">
-          <li>{{ site.title }}</li>
-          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+          <li>{{ site.title }}    <div>By <b>{{site.author}}</b></div</li>
         </ul>
+        <ul class="contact-list">
+            <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+        </ul>
+        
       </div>
 
       <div class="footer-col footer-col-2">

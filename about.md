@@ -5,14 +5,10 @@ permalink: /about/
 ---
 
 
-I am currently studying my Third year in the field of Computing Science at Simon Fraser University. I did my high-school in Iran and I am currently continuing my undergraduate in Canada.
 
 
 ## My Interesets
-- Developing Games using HTML5 and JavaScript
-- Learning and using cryptographic algorithms to encrypt sensitive data
-- Web development using PHP, MySQL
-- Writing C++/Python scripts that solve real-world problems
+Web development and web security, anything web related ...
 
 ---
 
@@ -42,11 +38,14 @@ I am currently studying my Third year in the field of Computing Science at Simon
 - Java
 - PHP
 
-### Communication Protocols:
-- SSH/SFTP
-- FTP
-- HTTP/HTTPS and REST API
+### Hacking and Security:
+- BurpSuite
+- OWASP ZAP
+- nmap
+- ng-crack
+- SQLMap
 
 ### Version Control Systems:
 - Subversion
 - Git
+- Mercurial
