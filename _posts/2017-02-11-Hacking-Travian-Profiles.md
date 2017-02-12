@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Hacking Travian Profiles (CSRF)"
-date:   2017-02-12
+date:   2017-02-11
 tags:
 - CSRF
 - Hacking
