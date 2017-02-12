@@ -8,6 +8,14 @@
 
     <div class="page-content">
       <div class="wrapper">
+          <div class="tags">
+              Topics: {% for post in site.posts %}
+                {% for tag in post.tags %}
+                    <a href="/tags.html?{{tag}}" class="tag"><small>{{tag}}</small></a>
+                {% endfor %}
+              {% endfor %}
+          </div>
+
         {{ content }}
       </div>
     </div>

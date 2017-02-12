@@ -51,3 +51,27 @@ $on-laptop:        800px;
         "layout",
         "syntax-highlighting"
 ;
+
+// CUSTOM CSS
+.tag:visited, .tag {
+    background-color: #84b3ff;
+    border-radius: 25px;
+    color: black;
+    margin: 5px 5px 10px 5px;
+    padding: 1px 5px 1px 5px;
+    font-size: 10pt;
+    cursor: pointer;
+
+}
+
+.tags {
+    margin: 0px 0px 50px 0px;
+}
+
+.post-meta{
+    margin-right: 50px;
+}
+
+.dense-list{
+    margin-bottom: 1px !important;
+}

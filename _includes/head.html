@@ -22,10 +22,18 @@
     js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.8&appId=2010659789160679";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
-
-
   </script>
-
   <!-- FACEBOOK SDK END -->
+
+
+  <script>
+    function goToLink(url){
+        var initialURL = window.location.href;
+        window.location.href = url;
+        if(initialURL == url){
+            window.location.reload();
+        }
+    }
+  </script>
 
 </head>
