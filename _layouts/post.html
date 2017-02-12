@@ -18,15 +18,15 @@ layout: default
 
 
   <div class="post-content" itemprop="articleBody">
+      <small>
+      Tags: {% for tag in page.tags %}
+          <a href="/tags.html#{{ tag | slugify }}"> #{{ tag }} </a>
+      {% endfor %}
+  </small><br><br>
+
     {{ content }}
 
     <br/>
-    <small>
-    Tags: {% for tag in page.tags %}
-        <a>#{{ tag }}</a>,
-     {% endfor %}
-    </small>
-
     <!-- BEGIN DISQUS -->
         <div id="disqus_thread"></div>
         <script>

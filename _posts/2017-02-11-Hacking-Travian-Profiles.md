@@ -1,13 +1,14 @@
 ---
 layout: post
 title:  "Hacking Travian Profiles (CSRF)"
-date:   2017-02-11
+date:   2017-02-12
 tags:
 - CSRF
 - Hacking
 - Web
 - Security
 - Travian
+- HTTP
 categories: jekyll update
 ---
 
