@@ -20,7 +20,7 @@ layout: default
   <div class="post-content" itemprop="articleBody">
       <small>
       Tags: {% for tag in page.tags %}
-          <a href="/tags.html#{{ tag | slugify }}"> #{{ tag }} </a>
+          <a href="/tags.html?{{ tag | slugify }}"> #{{ tag }} </a>
       {% endfor %}
   </small><br><br>
 
