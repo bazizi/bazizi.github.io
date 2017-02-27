@@ -1,39 +1,21 @@
 ---
 layout: post
-title:  "XSS Vulnerability in GoSFU"
-date:   2017-02-27
+title:  "Port Forwarding on T3200M (Telus) Router"
+date:   2017-02-26
 tags:
-- XSS
-- Hacking
-- Security
-- Web
-- JS
-- JavaScript
+- portforwarding
+- router
+- networking
+- nmap
 ---
 
-GoSFU had a feature to bookmark certain pages. I discovered multiple issues in the bookmarking feature of GoSFU:
+Last week I switched form SHAW Communications to Telus high-speed Internet. I normally forward a few ports on my router to access my web server and proxy at home while I'm at work or outside.
 
-- I could access the bookmark page without being logged into the system and I could add or remove bookmarks without any restrictions. Of course, items that were bookmarked while logged out of the system were not shown once I logged in
--  The same page had a stored XSS vulnerability and I could inject JS code into the page by modifying the bookmarks
+Surprisingly, port forwarding on the new router did not seem to work. There was absolutely no documentation online and I was about to give up! But after digging around and hours of trial an error and searching through forums I found out that it was a combination of the following issues:
 
-The last and the worst, any JS code injected into the page was reflected on multiple other pages including the "Class Search" page (Students often refer to this page to search for and enroll in classes).
+- Telus blocked well known ports (e.g., 22, 25, 80, 443) by default so I had to use ports > 1000
+- When testing, I could not access my network while using Telus Internet (Don't ask me why!)
 
-I reported the issues and they were fixed a few days later.
+I was quite surprised that when I connected using my phone data it worked, while I could not access my network using my Internet at home!
 
-## Screenshots
-
-Links could be modified without any restrictions:
-
-![GoSFU](/images/GoSFU/5.png){:width="600",:height="600"}
-
-Modifying links to contain JS code:
-
-![GoSFU](/images/GoSFU/2.png){:width="600",:height="600"}
-
-Dangerous characters were not escaped and JS code injected into the page was executed:
-![GoSFU](/images/GoSFU/3.png){:width="600",:height="600"}
-
-JS code injected into the page was reflected on multiple other pages including the "Class Search" page:
-![GoSFU](/images/GoSFU/1.png){:width="600",:height="600"}
-
-![GoSFU](/images/GoSFU/4.png){:width="600",:height="600"}
+There is probably no need to mention that I could not nmap either. [This](http://canyouseeme.org/){:target="_blank"} online port scanning tool helped me find out when it worked:
