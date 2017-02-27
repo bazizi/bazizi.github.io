@@ -14,7 +14,7 @@ categories: jekyll update
 
 I detected multiple XSS and CSRF vulnerabilities in [Travian](http://travian.com/){:target="_blank"} (Online game).
 
-- The in-game messaging system of Travian did not espace {}<>'" and, when sending messages to other users, I could embed malicious JS code in messages, Which got executed upon opening
+- The in-game messaging system of Travian did not escape {}<>'" and, when sending messages to other users, I could embed malicious JS code in messages, Which got executed upon opening
 - "Edit profile" was not CSRF-protected
 - "Send message" was not CSRF-protected
 

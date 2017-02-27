@@ -45,7 +45,7 @@ layout: default
                 $("#post-list").html(
                     $("#post-list").html() +
                         "<li class=\"dense-list\"><span class=\"post-meta\">" +
-                        months[date.getMonth()] + ", " +
+                        months[date.getMonth()] + " " + date.getDate() + ", " +
                         date.getFullYear() + "</span><a href=\"" +
                         post.url + "\">" +
                         post.title + "</a></li>"
