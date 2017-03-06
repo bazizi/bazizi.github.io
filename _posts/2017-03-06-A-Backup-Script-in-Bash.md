@@ -13,7 +13,7 @@ tags:
 ---
 
 
-I bought a new PC with Windows 10 installed two months ago and, as usual, the first thing I did was to dual boot Windows 10 and Ubuntu. However, one strange issue that I've encountered is that every time I boot into Windows, GRUB boot-loader crashes with the following very weird error:
+I bought a new PC with Windows 10 installed two months ago and, as usual, the first thing I did was to dual boot Windows 10 and Ubuntu. However, one strange issue that I've encountered is that every time I boot into Windows, the next time I try to boot into Ubuntu, the desktop does not load and instead the following error is shown (Shell access is perfectly fine):
 
 ```
 [drm:cpt_set_fifo_underrun_reporting] ERROR uncleared pch fifo underrun on pch transcoder A
