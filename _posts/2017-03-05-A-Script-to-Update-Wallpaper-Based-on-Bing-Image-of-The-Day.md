@@ -6,6 +6,7 @@ tags:
 - Python
 - Linux
 - Wallpaper
+- Ubuntu
 ---
 
 Isn't it cool that every time you turn on your computer a new random wallpaper shows up?
