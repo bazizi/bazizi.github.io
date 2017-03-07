@@ -29,12 +29,19 @@ I booted from live USB but so much to my surprise, re-generating the GRUB boot-l
 
 But fortunately re-installing GRUB from scratch fixed the issue:
 
-`sudo grub-install /dev/sda`
+```bash
+sudo mount /dev/sdax /mnt
+for i in /sys /proc /run /dev; do sudo mount --bind "$i" "/mnt$i"; done
+sudo chroot /mnt
+sudo grub-install /dev/sda
+exit
+reboot
+```
 
 This problem happened not even once, or two times, but rather three times! Until I realized this actually happened every time I booted into Windows 10. **I probably didn't need any more reasons in my life to hate Windows more than I do but this one was added to the list as well!**
 
 
-I learned my lesson and decided that regularly (almost every day) backup my whole system. I had previously used Rsync and it is indeed a very fast and great tool for doing so I wrote an Rsync script to backup my system to a separate partition.
+I learned my lesson and decided that regularly (almost every day) backup my whole system in case issues like this happen and result in loss of data. I had previously used Rsync and it is indeed a very fast and great tool for doing so I wrote an Rsync script to backup my system to a separate partition.
 
 
 The first time the script was run took ~30mins to backup my whole system. But now it takes ~5mins only, making it ideal since I can easily backup everything every day. Yes, Rsync is great!
