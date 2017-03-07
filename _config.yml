@@ -22,3 +22,4 @@ paginate: 10
 markdown: kramdown
 gems: [jekyll-paginate]
 timezone: America/Vancouver
+permalink: pretty
