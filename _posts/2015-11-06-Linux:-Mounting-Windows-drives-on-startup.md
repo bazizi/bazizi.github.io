@@ -2,7 +2,11 @@
 layout: post
 title:  "Linux: Mounting Windows drives on startup"
 date:   2015-11-06
-categories: jekyll update
+tags:
+- fstab
+- Linux
+- Ubuntu
+- NTFS
 ---
 In this post I am going to explain how to mount Windows drives on start up.
 In this example, my Windows machine has drives `C`, `D` and `E`.
