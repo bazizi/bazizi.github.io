@@ -24,7 +24,7 @@ Here is in general how you can tunnel through a remote server (Assuming you have
 
 Example:
 
-`ssh -CND 8080 bazizi@fraser.sfu.ca`
+`ssh -CND 8080 jbond@fraser.sfu.ca`
 
 In the above example, all request sent to port 8080 of localhost (127.0.0.1) will be encrypted and proxied through `fraser.sfu.ca`.
 Most applications can be configured to use SOCKS proxies. In the following screen shot you can see
