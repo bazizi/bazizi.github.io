@@ -3,7 +3,7 @@ layout: post
 title:  "Port Forwarding on T3200M (Telus) Router"
 date:   2017-02-26
 tags:
-- portforwarding
+- port-forwarding
 - router
 - networking
 - nmap
