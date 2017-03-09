@@ -11,6 +11,7 @@ tags:
 - Security
 - VPN
 - port-forwarding
+- Networking
 ---
 
 One of the lesser known features of SSH is port forwarding and sending data through an encrypted tunnel to a remote server.
