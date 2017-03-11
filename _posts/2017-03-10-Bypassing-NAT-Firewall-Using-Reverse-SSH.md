@@ -38,3 +38,5 @@ ssh -NR 8000:localhost:80 jbond@abc.com
 - You can now access your web server at home by visiting `http://abc.com` (Or `http://abc.com:80`)
 
 *It's cool isn't it? Well it is, until your computer gets infected with spyware that use a similar technique to bypass your router's basic protection!*
+
+**In a later post, I will explain how you can use reverse connections to create a backdoor on an Android device...**
