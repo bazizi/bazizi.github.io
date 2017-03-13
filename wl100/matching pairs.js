@@ -218,7 +218,7 @@ function processClick() {
                     revealImage(savedSquareX1, savedSquareY1);
                     revealImage(currentTile.x, currentTile.y);
 
-                    if (masterCounter == 1)
+                    if (masterCounter == 18)
                     {
                         // go "win"
                         youWin = 'Got them all!';
