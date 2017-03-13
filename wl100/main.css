@@ -12,4 +12,11 @@ canvas {
 
 body {
   background-image: url('./images/paper.jpg');
+  cursor: url('./images/sword.png'), auto;
+}
+
+h1 {
+    display: table;
+  margin: 0 auto;
+
 }

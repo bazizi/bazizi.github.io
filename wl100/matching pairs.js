@@ -220,7 +220,7 @@ function processClick() {
                     {
                         // go "win"
                         youWin = 'Got them all!';
-                        alert("Contrats! You Won! It took you " + ((new Date()).getTime() - timeStart)/1000 + " seconds to finish the game");
+                        alert("Congratulations! You Won! It took you " + ((new Date()).getTime() - timeStart)/1000 + " seconds to finish the game.");
                     }
                 }
                 else
