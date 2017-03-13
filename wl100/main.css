@@ -12,11 +12,94 @@ canvas {
 
 body {
   background-image: url('./images/paper.jpg');
-  cursor: url('./images/sword.png'), auto;
 }
+
+
 
 h1 {
     display: table;
   margin: 0 auto;
 
+}
+
+
+.box {
+  /*width: 100px;*/
+  /*padding: 35px;*/
+  text-align: center;
+  margin-bottom: 50px;
+
+}
+
+.button {
+  font-size: 18pt;
+  padding: 10px;
+  color: black;
+  border-radius: 20px/50px;
+  text-decoration: none;
+  transition: all 0.3s ease-out;
+  background-color: rgb(201, 155, 102);
+}
+.button:hover {
+  background: rgb(170, 130, 85);
+}
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: url('./images/paper.jpg');
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+  font-size: 15pt;
+}
+
+* {
+    cursor: url('./images/sword.png'), auto;
+
+}
+
+a:hover {
+    color: brown;
 }

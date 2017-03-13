@@ -1,3 +1,30 @@
+/*
+    Developer: Behnam Azizi
+    Date: March 13, 2017
+    External sources:
+        Images:
+            Map of Odyssey:
+                https://s3.amazonaws.com/engrade-myfiles/4080432026002289/odyssey_map.jpg
+            Sword cursor:
+                http://img14.deviantart.net/17ca/i/2012/151/5/0/loz_cartoon_sword_cursor_by_blueamnesiac-d51sio4.png
+
+            old paper (background image):
+                https://i.ytimg.com/vi/RGrKp6TQj98/maxresdefault.jpg
+
+            Tile textures:
+                wood texture in GIMP
+
+        Sounds:
+            Tile hover (Tick sound):
+                http://soundbible.com/grab.php?id=2044&type=mp3
+            Sword sound:
+                Provided in PhaserJS by default (sword.mp3)
+            matching sound:
+                Provided in PhaserJS by default (p-ping.mp3)
+
+
+*/
+
 
 var game = new Phaser.Game(600, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
