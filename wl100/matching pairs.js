@@ -56,6 +56,7 @@ var pic;
 var selectSound, matchSound, hoverSound;
 
 var text;
+var timeStart;
 
 function create() {
         //	You can listen for each of these events from Phaser.Loader
@@ -87,6 +88,7 @@ function create() {
 
 
     randomizeTiles();
+    timeStart = (new Date()).getTime();
 
 
 }
@@ -199,8 +201,6 @@ function processClick() {
             // is the second tile of pair flipped?
             if  (squareCounter == 2)
             {
-
-
                 // reset squareCounter
                 squareCounter = 0;
                 square2Num = currentNum;
@@ -218,10 +218,11 @@ function processClick() {
                     revealImage(savedSquareX1, savedSquareY1);
                     revealImage(currentTile.x, currentTile.y);
 
-                    if (masterCounter == 18)
+                    if (masterCounter == 1)
                     {
                         // go "win"
                         youWin = 'Got them all!';
+                        alert("Contrats! You Won! It took you " + ((new Date()).getTime() - timeStart)/1000 + " seconds to finish the game");
                     }
                 }
                 else
