@@ -1,5 +1,3 @@
-// mods by Patrick OReilly
-// twitter: @pato_reilly
 
 var game = new Phaser.Game(600, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
