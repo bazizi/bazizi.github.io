@@ -27,7 +27,7 @@ h1 {
   /*width: 100px;*/
   /*padding: 35px;*/
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
 
 }
 
@@ -67,8 +67,13 @@ h1 {
   background: url('./images/paper.jpg');
   border-radius: 5px;
   width: 30%;
-  position: relative;
-  transition: all 5s ease-in-out;
+  position: fixed;
+  transition: all 0.3s ease-in-out;
+  left:0;
+  right: 0;
+  overflow: scroll;
+  height: 1500px;
+
 }
 
 .popup h2 {
