@@ -7,7 +7,6 @@ tags:
 - Hacking
 - Web
 - Security
-- Travian
 - HTTP
 categories: jekyll update
 ---
