@@ -28,7 +28,7 @@ The trick is to create an SSH tunnel through your phone and since your phone is 
 
 - Then on my computer I create the SSH tunnel (SOCKS):
 
-`ssh -fCND 8080 -p 2222 ssh -fCND 8080 -p 2222 192.168.1.64`
+`ssh -fCND 8080 -p 2222 192.168.1.64`
 
 Where `192.168.1.64` is the private IP address of my mobile phone. In the above, we forward all requests to port `8080` of `localhost` to port `2222` of `192.168.1.64`, which is where our SSH server is running.
 
