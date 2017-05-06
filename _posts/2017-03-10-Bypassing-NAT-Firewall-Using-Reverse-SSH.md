@@ -6,6 +6,7 @@ tags:
 - SSH
 - Linux
 - Ubuntu
+- Hacking
 - Security
 - port-forwarding
 - Networking
