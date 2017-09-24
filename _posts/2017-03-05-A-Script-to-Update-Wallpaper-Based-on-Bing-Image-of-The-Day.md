@@ -45,3 +45,5 @@ with open(file_path, 'r') as f:
 	image_path, headers = urllib.request.urlretrieve(image_url)
 	print( os.popen("gsettings set org.gnome.desktop.background picture-uri file://{path}".format(path=image_path) ).read())
 ```
+
+You can find Linux and Windows versions of the program in this [Git Repository](https://github.com/bazizi/bing_wallpaper){:target="_blank"}. I also used [PyInstaller](http://www.pyinstaller.org/){:target="_blank"} to make a `.exe` version of the same program that you can put in your startup directory in Windows to update wallpaper on startup.
