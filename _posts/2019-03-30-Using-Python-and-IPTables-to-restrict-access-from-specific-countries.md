@@ -68,7 +68,7 @@ for row in iter(p.stdout.readline, b''):
                     cached_hosts[matches[0]] = 1
                     if country not in allowed_countries:
 						print("BLOCKED:  " + matches[0] + " from country " + country)
-						p = sub.Popen(('sudo', 'iptables', '-I', 'INPUT', '1', '-s', ips[0] , '-j', 'DROP'), stdout=sub.PIPE)
+						sub.Popen(('sudo', 'iptables', '-I', 'INPUT', '1', '-s', ips[0] , '-j', 'DROP'), stdout=sub.PIPE)
                     else:
 	                    print("ALLOWED: " + matches[0] + " from country " + country)
 f.close()
