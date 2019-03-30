@@ -9,7 +9,7 @@ tags:
 - OpenVPN
 ---
 
-Recently I setup an `OpenVPN` server for personal use with restrict IPTables rules that allow incoming access only through TCP port `443` (The port I run `OpenVPN` on) and block outgoing access except through the same port (HTTPS):
+Recently I setup an `OpenVPN` server for personal use with strict IPTables rules that allow incoming access only through TCP port `443` (The port I run `OpenVPN` on) and block outgoing access except through the same port (HTTPS):
 
 ```bash
 -A INPUT -s 10.8.0.0/24 -i tun0 -p tcp -j ACCEPT
