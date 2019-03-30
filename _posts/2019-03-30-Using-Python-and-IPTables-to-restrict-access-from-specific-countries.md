@@ -37,38 +37,39 @@ import urllib2
 import socket
 
 def nslookup(host):
-	ip_list = []
-	print("Getting IP address for hostname: " + host)
-	try:
-		ais = socket.getaddrinfo(host,0,0,0,0)
-		for result in ais:
-			ip_list.append(result[-1][0])
-	except:
-		print("An error occured")
-	return list(set(ip_list))
+    ip_list = []
+    print("Getting IP address for hostname: " + host)
+    try:
+        ais = socket.getaddrinfo(host,0,0,0,0)
+        for result in ais:
+            ip_list.append(result[-1][0])
+    except:
+        print("An error occured")
+    return list(set(ip_list))
 
 cached_hosts = {}
 allowed_countries = {'CA'}
 bufsize = 0
 f = open('cached_hosts', 'r+', buffering=bufsize)
 for line in f:
-	cached_hosts[line.strip()] = 1
+    cached_hosts[line.strip()] = 1
 p = sub.Popen(('sudo', 'tcpdump', '-l', 'dst port 443 and dst 10.0.2.4'), stdout=sub.PIPE)
 for row in iter(p.stdout.readline, b''):
     matches = re.findall(r'IP\s+([^\s]+)\.[^\s]+', row.rstrip())
     if matches: 
-	    if matches[0] not in cached_hosts and ips:
-		    ips = nslookup(matches[0])
-		    f.write(matches[0] + '\n')
-		    r = urllib2.urlopen("https://ipinfo.io/" + ips[0] + "/country")    
-		    if r:
-			    country = r.read().strip()
-			    print(country)
-			    cached_hosts[matches[0]] = 1
-			    if country not in allowed_countries:
-				print("BLOCKED:  " + matches[0] + " from country " + country)
-				p = sub.Popen(('sudo', 'iptables', '-I', 'INPUT', '1', '-s', ips[0] , '-j', 'DROP'), stdout=sub.PIPE)
-			    else:
-				print("ALLOWED: " + matches[0] + " from country " + country)
+        if matches[0] not in cached_hosts and ips:
+            f.write(matches[0] + '\n')
+            ips = nslookup(matches[0])
+            if ips:
+                r = urllib2.urlopen("https://ipinfo.io/" + ips[0] + "/country")    
+                if r:
+                    country = r.read().strip()
+                    print(country)
+                    cached_hosts[matches[0]] = 1
+                    if country not in allowed_countries:
+						print("BLOCKED:  " + matches[0] + " from country " + country)
+						p = sub.Popen(('sudo', 'iptables', '-I', 'INPUT', '1', '-s', ips[0] , '-j', 'DROP'), stdout=sub.PIPE)
+                    else:
+	                    print("ALLOWED: " + matches[0] + " from country " + country)
 f.close()
 ```
