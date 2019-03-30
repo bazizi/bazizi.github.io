@@ -57,7 +57,7 @@ p = sub.Popen(('sudo', 'tcpdump', '-l', 'dst port 443 and dst 10.0.2.4'), stdout
 for row in iter(p.stdout.readline, b''):
     matches = re.findall(r'IP\s+([^\s]+)\.[^\s]+', row.rstrip())
     if matches: 
-        if matches[0] not in cached_hosts and ips:
+        if matches[0] not in cached_hosts:
             f.write(matches[0] + '\n')
             ips = nslookup(matches[0])
             if ips:
