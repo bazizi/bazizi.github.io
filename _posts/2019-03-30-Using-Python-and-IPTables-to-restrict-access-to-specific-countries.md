@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "An adaptive firewall: Using Python and IPTables to restrict access from specific countries"
+title:  "An adaptive firewall: Using Python and IPTables to restrict access to specific countries"
 date:   2019-03-30
 tags:
 - Python
