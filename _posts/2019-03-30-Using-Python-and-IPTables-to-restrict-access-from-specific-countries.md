@@ -24,7 +24,7 @@ COMMIT
 ```
 
 Additionally, I setup a python script that used `tcpdump` to log incoming connections to the server. Interestingly, I found out that my server got a few requests from the outside (that wasn't by me). Since the server running on port `443` was `OpenVPN` and not a real HTTPS service, I could see errors in syslog:
-![Screenshot of syslog showing failure in HTTPS handshake](../images/tcp-443.png)
+![Screenshot of syslog showing failure in HTTPS handshake](/images/tcp-443.png)
 
 So I decided to write a quick-and-dirty Python script that finds the country of origin for each incoming tcp request and adds a rule to the `IPTables` firewall to block unwanted requests outside CA. Additionally, it does a very basic caching of processed hosts to avoid adding duplicate rules.
 
