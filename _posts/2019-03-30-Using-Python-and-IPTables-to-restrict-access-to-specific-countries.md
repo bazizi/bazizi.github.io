@@ -44,7 +44,7 @@ def nslookup(host):
         for result in ais:
             ip_list.append(result[-1][0])
     except:
-        print("An error occured")
+        print("An error ocurred while resolving hostname")
     return list(set(ip_list))
 
 cached_hosts = {}
@@ -58,18 +58,21 @@ for row in iter(p.stdout.readline, b''):
     matches = re.findall(r'IP\s+([^\s]+)\.[^\s]+', row.rstrip())
     if matches: 
         if matches[0] not in cached_hosts:
-            f.write(matches[0] + '\n')
             ips = nslookup(matches[0])
             if ips:
-                r = urllib2.urlopen("https://ipinfo.io/" + ips[0] + "/country")    
+                try:
+                    r = urllib2.urlopen("https://ipinfo.io/" + ips[0] + "/country")    
+                except:
+                    print("Failed to contact ipinfo.io")
+                    continue
                 if r:
                     country = r.read().strip()
-                    print(country)
                     cached_hosts[matches[0]] = 1
+                    f.write(matches[0] + '\n')
                     if country not in allowed_countries:
-						print("BLOCKED:  " + matches[0] + " from country " + country)
-						sub.Popen(('sudo', 'iptables', '-I', 'INPUT', '1', '-s', ips[0] , '-j', 'DROP'), stdout=sub.PIPE)
+                        print("BLOCKED:  " + matches[0] + " from country " + country)
+                        sub.Popen(('sudo', 'iptables', '-I', 'INPUT', '1', '-s', ips[0] , '-j', 'DROP'), stdout=sub.PIPE)
                     else:
-	                    print("ALLOWED: " + matches[0] + " from country " + country)
+                        print("ALLOWED: " + matches[0] + " from country " + country)
 f.close()
 ```
