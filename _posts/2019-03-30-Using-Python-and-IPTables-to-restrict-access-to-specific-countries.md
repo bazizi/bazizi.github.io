@@ -67,12 +67,18 @@ for row in iter(p.stdout.readline, b''):
                     continue
                 if r:
                     country = r.read().strip()
-                    cached_hosts[matches[0]] = 1
-                    f.write(matches[0] + '\n')
                     if country not in allowed_countries:
-                        print("BLOCKED:  " + matches[0] + " from country " + country)
-                        sub.Popen(('sudo', 'iptables', '-I', 'INPUT', '1', '-s', ips[0] , '-j', 'DROP'), stdout=sub.PIPE)
+                        if sub.call(['sudo', 'iptables', '-I', 'INPUT', '1', '-s', ips[0] , '-j', 'DROP']) == 0:
+                            print("BLOCKED:  " + matches[0] + " from country " + country)
+                            cached_hosts[matches[0]] = 1
+                            f.write(matches[0] + '\n')
+                        else:
+                            print("Failed to add firewall rule")
                     else:
                         print("ALLOWED: " + matches[0] + " from country " + country)
+                        # we do not write sources allowed through firewall to file
+                        # in case we want to block them later
+                        cached_hosts[matches[0]] = 1
+
 f.close()
 ```
