@@ -4,14 +4,6 @@ title: About
 permalink: /about/
 ---
 
-
-
-
-## My Interesets
-Web development and web security, anything web related ...
-
----
-
 ## Summary of My Qualifications
 
 ### Programming and Markup Languages that I know very well:
