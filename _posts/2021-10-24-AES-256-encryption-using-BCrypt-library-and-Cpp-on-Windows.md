@@ -47,6 +47,7 @@ int main()
     BCRYPT_ALG_HANDLE hBcryptAlg = nullptr;
     BCRYPT_KEY_HANDLE hBcryptKey = nullptr;
     BYTE rgAESKey[AES256KEYSIZE] = {}; // TODO: Replace with a random key
+    int retVal = 0;
 
     try
     {
@@ -123,20 +124,23 @@ int main()
     }
     catch (const std::exception& e)
     {
-        if (hBcryptAlg)
-        {
-            BCryptCloseAlgorithmProvider(hBcryptAlg, 0);
-        }
-
-        if (hBcryptKey)
-        {
-            BCryptDestroyKey(hBcryptKey);
-        }
-
         std::cout << e.what() << std::endl;
-        return -1;
+        retVal = -1;
+        goto CLEANUP;
     }
-    return 0;
+
+CLEANUP:
+    if (hBcryptAlg)
+    {
+        BCryptCloseAlgorithmProvider(hBcryptAlg, 0);
+    }
+
+    if (hBcryptKey)
+    {
+        BCryptDestroyKey(hBcryptKey);
+    }
+
+    return retVal;
 }
 
 ```
@@ -167,7 +171,6 @@ void HexDump(const std::vector<UCHAR> & vByteBuffer);
 #define STATUS_NOT_FOUND ((NTSTATUS)0xC0000225L)
 #define STATUS_BUFFER_TOO_SMALL ((NTSTATUS)0xC0000023L)
 #define STATUS_SUCCESS ((NTSTATUS)0x00000000L)
-
 
 void ErrorHandler(NTSTATUS status)
 {
@@ -218,11 +221,13 @@ void HexDump(const std::vector<UCHAR>& vByteBuffer)
     std::string textChars;
     textChars.resize(16);
 
+    size_t j = 0;
     for (size_t i = 0; i < vByteBuffer.size(); ++i)
     {
         if (i != 0 && i % 16 == 0)
         {
             PrintHexChunk(vByteBuffer, i);
+            j = i;
         }
 
         std::cout << hexChars[(vByteBuffer[i] >> 0x04)] <<
@@ -230,7 +235,19 @@ void HexDump(const std::vector<UCHAR>& vByteBuffer)
     }
 
     // print the remaining bytes
-    PrintHexChunk(vByteBuffer, vByteBuffer.size());
-    std::cout << std::endl;
+    std::cout << " | ";
+    while (j < vByteBuffer.size())
+    {
+        if (isprint(vByteBuffer[j]))
+        {
+            std::cout << vByteBuffer[j];
+        }
+        else
+        {
+            std::cout << ".";
+        }
+        ++j;
+    }
+    std::cout << std::endl << std::endl;
 }
 ```
