@@ -22,4 +22,5 @@ paginate: 5
 markdown: kramdown
 gems: [jekyll-paginate]
 timezone: America/Vancouver
+future: true
 permalink: pretty
