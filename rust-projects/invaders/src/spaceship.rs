@@ -1,7 +1,9 @@
+use std::borrow::BorrowMut;
+
 use crate::gameobject::*;
 use crate::vec2::Vec2;
 use crate::webutils::*;
-use wasm_bindgen::JsCast;
+use wasm_bindgen::{JsCast, JsValue};
 use web_sys::HtmlAudioElement;
 
 pub struct SpaceShip {
@@ -15,6 +17,51 @@ pub struct SpaceShip {
     size: Vec2,
     force: Vec2, // the final result of all forces on the object
     update_audio: HtmlAudioElement,
+    bullets: Vec<Bullet>,
+}
+
+struct Bullet {
+    canvas_context: web_sys::CanvasRenderingContext2d,
+    position: Vec2,
+    velocity: Vec2,
+    force: Vec2, // the final result of all forces on the object
+}
+
+impl Bullet {
+    pub fn new(x: f64, y: f64, canvas: &web_sys::HtmlCanvasElement) -> Self {
+        let context = canvas
+            .get_context("2d")
+            .unwrap()
+            .unwrap()
+            .dyn_into::<web_sys::CanvasRenderingContext2d>()
+            .unwrap();
+
+        Self {
+            position: Vec2 { x, y },
+            velocity: Vec2 { x: 0., y: -1. },
+            force: Vec2::new(),
+            canvas_context: context,
+        }
+    }
+}
+
+impl GameObject for Bullet {
+    fn update(&mut self) {
+        self.position += self.velocity;
+    }
+
+    fn render(&self) {
+        self.canvas_context
+            .set_fill_style(&JsValue::from_str("white"));
+        self.canvas_context
+            .fill_rect(self.position.x, self.position.y, 3., 3.);
+        self.canvas_context
+            .set_fill_style(&JsValue::from_str("black"));
+    }
+
+    fn add_force(&mut self, force: Vec2) {
+        self.force += force;
+    }
 }
 
 impl SpaceShip {
@@ -42,6 +89,7 @@ impl SpaceShip {
             size: Vec2 { x: 25., y: 25. },
             force: Vec2::new(),
             update_audio: HtmlAudioElement::new_with_src("assets/spaceEngine_000.ogg").unwrap(),
+            bullets: Vec::new(),
         }
     }
 
@@ -51,6 +99,14 @@ impl SpaceShip {
 
     pub fn size(&self) -> Vec2 {
         self.size
+    }
+
+    fn shoot(&mut self) {
+        self.bullets.push(Bullet::new(
+            self.position.x + self.size.x / 2.,
+            self.position.y,
+            &self.canvas,
+        ));
     }
 }
 
@@ -65,6 +121,10 @@ impl GameObject for SpaceShip {
                 self.size().y,
             )
             .unwrap();
+
+        for bullet in &self.bullets {
+            bullet.render();
+        }
     }
 
     fn update(&mut self) {
@@ -87,17 +147,24 @@ impl GameObject for SpaceShip {
             self.acceleration.clear();
         }
 
-        if self.velocity.magnitude() > 10. {
-            let _promise = self.update_audio.play().unwrap();
-        } else {
-            let _promise = self.update_audio.pause().unwrap();
-            self.update_audio.set_current_time(0.);
-        }
+        // TODO: sound effects
+        // if self.velocity.magnitude() > 10. {
+        //     let _promise = self.update_audio.play().unwrap();
+        // } else {
+        //     let _promise = self.update_audio.pause().unwrap();
+        //     self.update_audio.set_current_time(0.);
+        // }
 
         log(&format!(
             "spaceship: [position={}, velocity={}, acceleration={}]",
             self.position, self.velocity, self.acceleration
         ));
+
+        self.shoot();
+
+        for bullet in &mut self.bullets {
+            bullet.update();
+        }
     }
 
     fn add_force(&mut self, force: Vec2) {
