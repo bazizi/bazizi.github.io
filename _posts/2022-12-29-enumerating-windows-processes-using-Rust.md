@@ -7,10 +7,10 @@ tags:
 - Rust
 ---
 
-Windows API documentation has an example for [Enumerating All Modules For a Process](https://learn.microsoft.com/en-us/windows/win32/psapi/enumerating-all-modules-for-a-process) using C++. As an exercise, I decided to implement the same functionality using Rust and the `winapi` crate.
+Windows API documentation has an example for [Enumerating All Modules For a Process](https://learn.microsoft.com/en-us/windows/win32/psapi/enumerating-all-modules-for-a-process) using C++. As an exercise, I decided to implement the same functionality using Rust and the  (unofficial) [winapi](https://docs.rs/winapi/latest/winapi/) crate.
 
 
-- Dependency on the `winapi` crate and features needed:
+- Dependency on the [winapi](https://docs.rs/winapi/latest/winapi/) crate and features needed:
 
 ```ini
 # Cargo.toml
