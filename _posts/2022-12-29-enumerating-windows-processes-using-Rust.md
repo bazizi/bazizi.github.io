@@ -32,7 +32,8 @@ winapi = { version = "0.3", features = ["psapi", "processthreadsapi", "winnt", "
 // main.rs
 
 fn main() {
-    println!("{:?}", get_process_list());
+    // yes unwrap is bad, but this is not production code either!
+    println!("{:?}", get_process_list().unwrap());
 }
 
 #[derive(Debug)]
