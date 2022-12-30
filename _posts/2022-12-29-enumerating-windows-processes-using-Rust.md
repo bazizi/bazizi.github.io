@@ -75,7 +75,7 @@ fn get_process_list() -> Result<Vec<Process>, Error> {
     let num_processes = cb_needed as usize / std::mem::size_of::<DWORD>();
     process_ids.resize(num_processes, 0);
 
-let mut process_info = Vec::new();
+    let mut process_info = Vec::new();
     for i in 0..num_processes {
         let process_handle = unsafe {
             OpenProcess(
