@@ -1,16 +1,16 @@
 ---
 layout: post
-title:  "Enumerating Windows processes using Rust and the winapi crate"
+title:  "Enumerating Windows processes using Rust and the windows crate"
 date:   2022-12-29
 tags:
-- WinAPI
+- Windows
 - Rust
 ---
 
-Windows API documentation has an example for [Enumerating All Modules For a Process](https://learn.microsoft.com/en-us/windows/win32/psapi/enumerating-all-modules-for-a-process) using C++. As an exercise, I decided to implement the same functionality using Rust and the  (unofficial) [winapi](https://docs.rs/winapi/latest/winapi/) crate.
+Windows API documentation has an example for [Enumerating All Modules For a Process](https://learn.microsoft.com/en-us/windows/win32/psapi/enumerating-all-modules-for-a-process) using C++. As an exercise, I decided to implement the same functionality using Rust and the  [windows](https://docs.rs/crate/windows-sys/latest) crate.
 
 
-- Dependency on the [winapi](https://docs.rs/winapi/latest/winapi/) crate and features needed:
+- Dependency on the [windows](https://docs.rs/crate/windows-sys/latest) crate and features needed:
 
 ```ini
 # Cargo.toml
@@ -23,7 +23,12 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [target.'cfg(windows)'.dependencies]
-winapi = { version = "0.3", features = ["psapi", "processthreadsapi", "winnt", "handleapi"] }
+windows-sys = {version = "0.42.0", features = [
+    "Win32_System_ProcessStatus", "Win32_Foundation",    # K32EnumProcessModules, K32EnumProcesses
+    "Win32_System_Threading", # OpenProcess
+    "Win32_System_LibraryLoader", # GetModuleFileNameA
+]}
+
 ```
 
 - The complete Rust code:
@@ -44,24 +49,17 @@ struct Process {
 }
 
 fn get_process_list() -> Result<Vec<Process>, Error> {
-    use std::ptr::null_mut;
-    use winapi::shared::minwindef::{DWORD, HMODULE, MAX_PATH};
-    use winapi::um::handleapi::CloseHandle;
-    use winapi::um::processthreadsapi::OpenProcess;
-    use winapi::um::psapi::{
-        EnumProcessModules, EnumProcesses, GetModuleBaseNameA, GetModuleFileNameExA,
-    };
-    use winapi::um::winnt::{PROCESS_QUERY_INFORMATION, PROCESS_VM_READ};
+    let mut process_info = Vec::new();
 
     let mut process_ids = Vec::with_capacity(1024);
     process_ids.resize(1024, 0);
+    let mut cb_needed: u32 = 0;
 
-    let mut cb_needed: DWORD = 0;
     if unsafe {
-        // get the size needed for the process_ids buffer
-        EnumProcesses(
+        use windows_sys::Win32::System::ProcessStatus::K32EnumProcesses;
+        K32EnumProcesses(
             process_ids.as_mut_ptr(),
-            (process_ids.len() * std::mem::size_of::<DWORD>()) as DWORD,
+            (process_ids.len() * std::mem::size_of::<u32>()) as u32,
             &mut cb_needed,
         )
     } == 0
@@ -71,11 +69,11 @@ fn get_process_list() -> Result<Vec<Process>, Error> {
         println!("\nInitial EnumProcesses success");
     }
 
-
-    let num_processes = cb_needed as usize / std::mem::size_of::<DWORD>();
+    let num_processes = cb_needed as usize / std::mem::size_of::<u32>();
     process_ids.resize(num_processes, 0);
 
-    let mut process_info = Vec::new();
+    use windows_sys::Win32::System::Threading::OpenProcess;
+    use windows_sys::Win32::System::Threading::{PROCESS_QUERY_INFORMATION, PROCESS_VM_READ};
 
     for i in 0..num_processes {
         let process_handle = unsafe {
@@ -86,39 +84,47 @@ fn get_process_list() -> Result<Vec<Process>, Error> {
             )
         };
 
-        if process_handle.is_null() {
+        if process_handle == 0 {
             continue;
         }
 
-        let mut process_name = Vec::<i8>::new();
-        process_name.resize(MAX_PATH, 0);
+        use windows_sys::Win32::Foundation::MAX_PATH;
 
-        let mut process_path = Vec::<i8>::new();
-        process_path.resize(MAX_PATH, 0);
+        let mut process_name = Vec::<u8>::new();
+        process_name.resize(MAX_PATH as usize, 0);
 
-        let mut module_handle: HMODULE = null_mut();
+        let mut process_path = Vec::<u8>::new();
+        process_path.resize(MAX_PATH as usize, 0);
+
+        use windows_sys::Win32::Foundation::HINSTANCE;
+        let mut module_handle: HINSTANCE = 0;
         cb_needed = 0;
 
         unsafe {
-            if EnumProcessModules(
+            use windows_sys::Win32::System::ProcessStatus::K32EnumProcessModules;
+
+            if K32EnumProcessModules(
                 process_handle,
                 &mut module_handle,
-                std::mem::size_of::<HMODULE>() as DWORD,
+                std::mem::size_of::<u32>() as u32,
                 &mut cb_needed,
             ) != 0
             {
-                GetModuleFileNameExA(
+                use windows_sys::Win32::System::ProcessStatus::K32GetModuleFileNameExA;
+
+                K32GetModuleFileNameExA(
                     process_handle,
                     module_handle,
                     process_path.as_mut_ptr(),
-                    process_path.len() as DWORD,
+                    process_path.len() as u32,
                 );
 
-                GetModuleBaseNameA(
+                use windows_sys::Win32::System::ProcessStatus::K32GetModuleBaseNameA;
+                K32GetModuleBaseNameA(
                     process_handle,
                     module_handle,
                     process_name.as_mut_ptr(),
-                    process_name.len() as DWORD,
+                    process_name.len() as u32,
                 );
 
                 let process = Process {
@@ -126,13 +132,13 @@ fn get_process_list() -> Result<Vec<Process>, Error> {
                         process_name
                             .iter()
                             .take_while(|&&x| x != 0)
-                            .map(|&x| x as u8 as char),
+                            .map(|&x| x as char),
                     ),
                     path: String::from_iter(
                         process_path
                             .iter()
                             .take_while(|&&x| x != 0)
-                            .map(|&x| x as u8 as char),
+                            .map(|&x| x as char),
                     ),
                     id: process_ids[i],
                 };
@@ -140,12 +146,14 @@ fn get_process_list() -> Result<Vec<Process>, Error> {
                 process_info.push(process);
             }
 
+            use windows_sys::Win32::Foundation::CloseHandle;
             CloseHandle(process_handle);
         }
     }
 
     Ok(process_info)
 }
+
 ```
 
 
