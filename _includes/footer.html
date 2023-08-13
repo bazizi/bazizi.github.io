@@ -1,64 +1,36 @@
-<footer class="site-footer">
+<footer class="site-footer h-card">
+  <data class="u-url" href="{{ "/" | relative_url }}"></data>
 
   <div class="wrapper">
 
-    <!-- <h2 class="footer-heading">{{ site.title }}</h2> -->
-
     <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <img width=50 height=50 src="{{ site.avatar }}" align="left" style="padding-right: 10px">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="{{ site.feed.path | default: 'feed.xml' | absolute_url }}">
+            <svg class="svg-icon orange">
+              <use xlink:href="{{ 'assets/minima-social-icons.svg#rss' | relative_url }}"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      {%- if site.author %}
         <ul class="contact-list">
-          <li>{{ site.title }}    <div>By <b>{{site.author}}</b></div</li>
+          {% if site.author.name -%}
+            <li class="p-name">{{ site.author.name | escape }}</li>
+          {% endif -%}
+          {% if site.author.email -%}
+            <li><a class="u-email" href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></li>
+          {%- endif %}
         </ul>
-        <div class="fb-follow" data-href="https://www.facebook.com/behnam.cybergig" data-layout="standard" data-size="large" data-show-faces="true"></div>
-        <ul class="contact-list">
-            <!-- <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li> -->
-        </ul>
-
+      {%- endif %}
       </div>
-
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          {% if site.github_username %}
-          <li>
-            {% include icon-github.html username=site.github_username %}
-          </li>
-          {% endif %}
-
-          {% if site.twitter_username %}
-          <li>
-            {% include icon-twitter.html username=site.twitter_username %}
-          </li>
-          {% endif %}
-          <li>
-            <a href="{{site.url}}/sitemap.xml">sitemap</a>
-          </li>
-        </ul>
+      <div class="footer-col">
+        <p>{{ site.description | escape }}</p>
       </div>
-
-      <div class="footer-col footer-col-3">
-        <p>{{ site.description }}</p>
-      </div>
-
-
     </div>
-        <!-- Start of StatCounter Code for Default Guide -->
-        <script type="text/javascript">
-        var sc_project=11276191;
-        var sc_invisible=0;
-        var sc_security="e6223822";
-        var scJsHost = (("https:" == document.location.protocol) ?
-        "https://secure." : "http://www.");
-        document.write("<sc"+"ript type='text/javascript' src='" +
-        scJsHost+
-        "statcounter.com/counter/counter.js'></"+"script>");
-        </script>
-        <noscript><div class="statcounter"><a title="site stats"
-            href="http://statcounter.com/" target="_blank"><img
-            class="statcounter"
-            src="//c.statcounter.com/11276191/0/e6223822/0/" alt="site
-            stats"></a></div></noscript>
-            <!-- End of StatCounter Code for Default Guide -->
+
+    <div class="social-links">
+      {%- include social.html -%}
+    </div>
 
   </div>
 
