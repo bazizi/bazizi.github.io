@@ -7,7 +7,7 @@ tags:
 - Rust
 ---
 
-Windows API documentation has an example for [Enumerating All Modules For a Process](https://learn.microsoft.com/en-us/windows/win32/psapi/enumerating-all-modules-for-a-process) using C++. As an exercise, I decided to implement the same functionality using Rust and the  [windows](https://docs.rs/crate/windows-sys/latest) crate.
+Windows API documentation has an example for [Enumerating All Processes](https://learn.microsoft.com/en-us/windows/win32/psapi/enumerating-all-processes) using C++. As an exercise, I decided to implement the same functionality using Rust and the  [windows](https://docs.rs/crate/windows-sys/latest) crate.
 
 
 - Dependency on the [windows](https://docs.rs/crate/windows-sys/latest) crate and features are needed. I also used the `anyhow` crate for cleaner error handling, and the `log` and `env_logger` crates for logging:
@@ -269,7 +269,7 @@ fn get_process_list() -> Result<Vec<ProcessModule>> {
 
 ```
 
-The above Rust implementation is a bit more verbose compared to the [original C++ code](https://learn.microsoft.com/en-us/windows/win32/psapi/enumerating-all-modules-for-a-process) because it checks the required buffer size after calling `EnumProcesses` and resizes the buffer dynamically and retries (if needed).
+The above Rust implementation is a bit more verbose compared to the [original C++ code](https://learn.microsoft.com/en-us/windows/win32/psapi/enumerating-all-processes) because it checks the required buffer size after calling `EnumProcesses` and resizes the buffer dynamically and retries (if needed).
 
 The output of running `set RUST_LOG=process_info && cargo run` in `debug` build looks like the following:
 
